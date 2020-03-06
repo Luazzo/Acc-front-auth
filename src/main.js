@@ -17,13 +17,16 @@ window.Vue = Vue
 // Set Vue router
 Vue.router = router
 
-// Set Vue authentication
+// Set Vue Axios
 Vue.use(VueAxios, axios)
 axios.defaults.baseURL = `http://127.0.0.1:8000/api/`
 
+// Set Vue authentication
 Vue.use(VueAuth, auth)
 Vue.config.productionTip = false;
 Vue.use(NowUIKit);
+
+// Set Vue localStorage : make it reactive
 
 
 

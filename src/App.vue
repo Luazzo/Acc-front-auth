@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <router-view name="header"/>
+        <StarterNavbar></StarterNavbar>
 
         <div>
             <router-view/>
@@ -10,8 +10,11 @@
     </div>
 </template>
 <script>
+    import StarterNavbar from './layout/StarterNavbar';
     export default {
-
+        components: {
+            StarterNavbar,
+        },
     }
 </script>
 

@@ -113,6 +113,7 @@
 </template>
 <script>
     import { Button, HeadImage,InfoSection, FormGroupInput } from '../components';
+    import Vue from "vue";
 
     export default {
         name: 'accueil',
@@ -131,6 +132,9 @@
                     phone: ''
                 },
             }
+        },
+        mounted() {
+            //console.log(this.$localStorage.token)
         }
     }
 </script>

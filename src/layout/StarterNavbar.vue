@@ -31,8 +31,8 @@
                 Contact
             </router-link>
             <template v-if="loggedIn">
-                <li class="nav-item nav-link" style="cursor: pointer;" @click.prevent="logout">
-                    Deconnexion
+                <li class="nav-item nav-link" style="cursor: pointer;" @click.prevent="logoutUser">
+                    Deconnexion {{loggedIn}} XX
                 </li>
             </template>
             <template v-else>
@@ -53,7 +53,8 @@
 <script>
     import { DropDown, NavbarToggleButton, Navbar, NavLink } from '@/components';
     import { Popover } from 'element-ui'
-    import {mapMutations, mapState} from "vuex";
+    import {mapMutations, mapGetters, mapState, mapActions} from "vuex";
+    import Vue from "vue";
 
     export default {
         name: 'main-navbar',
@@ -64,47 +65,48 @@
             NavLink,
             [Popover.name]: Popover
         },
-
-        computed:{
-            ...mapState(["loggedIn"]),
-            /*loggedIn(){
-                return (localStorage.getItem('user') != null) ? true: false}
-
-            */
-        },
-        methods:{
-            ...mapMutations(['changeLoggedIn']),
-
-            logout() {
-                let url = "auth/logout"
-
-                this.$http.post( url,{
-                    'token' : JSON.parse(localStorage.getItem('user'))
-                })
-                .then(response => {
-                    if (response.data.message) {
-
-                        localStorage.removeItem('user')
-
-                        this.changeLoggedIn(false)
-                        console.log( this.loggedIn )
-
-                        if(this.$route.params.nextURL != null){
-                            this.$router.push(this.$route.params.nextURL)
-                        }
-                        else{
-                            this.$router.push('/')
-                        }
-                    }
-                })
-                .catch(function (error) {
-                    console.error(error.response);
-                });
+        data(){
+            return{
             }
         },
 
-        created() {
-            console.log(localStorage.getItem('user'))
+        computed:{
+            //...mapState(['token']),
+
+            /*token:{
+                get: function () {
+                    return (this.$store.state.token !== '')
+                },
+            }*/
+
+            loggedIn() {
+                console.log('StarterNavbar ', this.$store.state.token )
+                console.log(this.$store.state.token !== '' ) //true
+                return (this.$store.state.token !== '')
+            }
+        },
+
+        methods:{
+            ...mapActions(['logoutUser']),
+
+            /*updateToken: async function (newValue) {
+
+                this.$nextTick(function () {
+                    this.$store.state.token = newValue
+                })
+            },*/
+        },
+
+        mounted() {
+            console.log("token : " + this.$store.state.token )
+            // Vue.nextTick(callback)
+
+            /* this.updateToken(this.token)
+
+            Vue.nextTick(function () {
+                console.log(this.$store.state.token !== '' )
+                return (this.$store.state.token !== '')
+            })*/
         }
 
     }

@@ -21,13 +21,13 @@ const router = new Router({
     {
       path: "/accueil",
       name: "accueil",
-      components: {default: Accueil, header: StarterNavbar, footer: MainFooter},
+      components: {default: Accueil,  footer: MainFooter},
       props: {header: {colorOnScroll: 450}}
     },
     {
       path: "/login",
       name: "login",
-      components: {default: LoginPage, header: StarterNavbar, footer: MainFooter},
+      components: {default: LoginPage, footer: MainFooter},
       props: {header: {colorOnScroll: 450}},
       meta: {
         auth: false

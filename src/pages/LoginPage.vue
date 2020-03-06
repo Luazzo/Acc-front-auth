@@ -66,43 +66,21 @@
                 error: ''
             }
         },
-        computed:{
 
-            ...mapState(["loggedIn"]),
+        computed:{
         },
+
         methods: {
-            ...mapMutations(['changeLoggedIn']),
+            ...mapActions(['loginUser']),
 
             login(){
                 if (this.email.length > 0 && this.password.length > 0) {
-                    let url = "auth/login"
 
-                    this.$http.post(url, {
+                    this.loginUser({
                         email: this.email,
                         password: this.password,
                     })
-                    .then(response => {
 
-                        if (response.data.accessToken != null ) {
-
-                            localStorage.setItem('user', JSON.stringify(response.data.accessToken));
-
-                            this.changeLoggedIn(true)
-
-                            console.log(this.loggedIn)
-
-                            if(this.$route.params.nextURL != undefined){
-                                this.$router.push(this.$route.params.nextURL)
-                            }
-                            else{
-                                this.$router.push('/')
-                            }
-                        }
-
-                    })
-                    .catch(function (error) {
-                        console.error(error.response);
-                    });
                 } else {
                     this.password = ""
 
